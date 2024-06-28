@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvfvdyt64jiqh"]
+[gd_scene load_steps=12 format=3 uid="uid://dvfvdyt64jiqh"]
 
 [ext_resource type="PackedScene" uid="uid://c0uikmodcm5nr" path="res://player.tscn" id="1_6xjcp"]
-[ext_resource type="PackedScene" uid="uid://jyfihees24dn" path="res://gui.tscn" id="2_4nwvv"]
 [ext_resource type="Script" path="res://detectPlayer.gd" id="3_xscw4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2exor"]
@@ -75,9 +74,6 @@ shape = SubResource("SphereShape3D_nx63l")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.536298, 0.844029, 0, -0.844029, 0.536298, 0, 32.7362, 16.6078)
-
-[node name="GUI" parent="." instance=ExtResource("2_4nwvv")]
-metadata/_edit_use_anchors_ = true
 
 [node name="Crouch" type="MeshInstance3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 0.5, 0, 0, 0, 2, -14.084, 2.3, -3.27)
