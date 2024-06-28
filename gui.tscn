@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://jyfihees24dn"]
+
+[ext_resource type="Texture2D" uid="uid://buvd8i21ry6j2" path="res://assets/label_HP_bg.png" id="1_gvi6m"]
+[ext_resource type="Texture2D" uid="uid://s8hmghscpmi6" path="res://assets/label_HP.png" id="2_pyxd0"]
+[ext_resource type="FontFile" uid="uid://vmwyt5j3f122" path="res://assets/LibreBaskerville-Regular.ttf" id="3_i2tqg"]
+[ext_resource type="Texture2D" uid="uid://bwiiovg31of8g" path="res://assets/lifebar_bg.png" id="4_7nf1h"]
+[ext_resource type="Texture2D" uid="uid://r71sgc4hqhvx" path="res://assets/lifebar_fill.png" id="5_d78b4"]
+
+[node name="Control" type="MarginContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Bars" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Bar" type="HBoxContainer" parent="HBoxContainer/Bars"]
+layout_mode = 2
+
+[node name="Count" type="MarginContainer" parent="HBoxContainer/Bars/Bar"]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="HBoxContainer/Bars/Bar/Count"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+texture = ExtResource("1_gvi6m")
+
+[node name="Title" type="TextureRect" parent="HBoxContainer/Bars/Bar/Count/Background"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -26.0
+offset_right = 57.0
+offset_bottom = 26.0
+grow_vertical = 2
+texture = ExtResource("2_pyxd0")
+stretch_mode = 3
+
+[node name="Number" type="Label" parent="HBoxContainer/Bars/Bar/Count/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_i2tqg")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Gauge" type="TextureProgressBar" parent="HBoxContainer/Bars/Bar"]
+layout_mode = 2
+max_value = 10.0
+value = 5.0
+texture_under = ExtResource("4_7nf1h")
+texture_progress = ExtResource("5_d78b4")
+
+[node name="Counters" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2

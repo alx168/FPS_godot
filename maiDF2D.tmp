@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=3 uid="uid://d3tcnedb457km"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_mnwlr"]
+[ext_resource type="PackedScene" uid="uid://jyfihees24dn" path="res://gui.tscn" id="2_4nwvv"]
+[ext_resource type="Script" path="res://interactable.gd" id="2_dxrlw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_n1e2o"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mwx03"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lu7bh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3odpo"]
+albedo_color = Color(0.364706, 1, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ct33u"]
+material = SubResource("StandardMaterial3D_3odpo")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rp6or"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5xmf"]
+albedo_color = Color(1, 0.152941, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rxeje"]
+material = SubResource("StandardMaterial3D_o5xmf")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(40, 0, 0, 0, 1, 0, 0, 0, 40, 0, 0, 0)
+mesh = SubResource("BoxMesh_n1e2o")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_mwx03")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00692701, 6.0294, 0.00447321)
+script = ExtResource("1_mnwlr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.74996e-05, -0.00312471, -4.3869e-05)
+shape = SubResource("CapsuleShape3D_lu7bh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_ct33u")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4.33003, 3.17988)
+projection = 1
+size = 14.0
+near = 0.084
+
+[node name="interactable" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00213766, 6.52018, -4.19921)
+script = ExtResource("2_dxrlw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactable"]
+shape = SubResource("SphereShape3D_rp6or")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="interactable"]
+mesh = SubResource("SphereMesh_rxeje")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.536298, 0.844029, 0, -0.844029, 0.536298, 0, 32.7362, 16.6078)
+
+[node name="GUI" parent="." instance=ExtResource("2_4nwvv")]
+
+[connection signal="body_entered" from="interactable" to="Player" method="_on_interactable_body_entered"]
+[connection signal="body_entered" from="interactable" to="interactable" method="_on_body_entered"]
+[connection signal="body_shape_entered" from="interactable" to="interactable" method="_on_body_shape_entered"]
