@@ -62,6 +62,7 @@ _data = {
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("CROUCH_SHAPECAST")]
 script = ExtResource("1_6dyjy")
 CROUCH_SHAPECAST = NodePath("ShapeCast3D")
+TOGGLE_CROUCH = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
