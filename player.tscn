@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0uikmodcm5nr"]
+[gd_scene load_steps=10 format=3 uid="uid://c0uikmodcm5nr"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_6dyjy"]
+[ext_resource type="Script" path="res://Reticle.gd" id="2_n6052"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1c47n"]
 
@@ -91,5 +92,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51, 0)
 shape = SubResource("SphereShape3D_0lgbf")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 0.694118, 0, 1)
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_n6052")
+RETICLE_LINES = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+PLAYER_CONTROLLER = NodePath("../..")
+
+[node name="Top" type="Line2D" parent="UserInterface/Reticle"]
+points = PackedVector2Array(0, -15, 0, -35)
+width = 2.0
+
+[node name="Right" type="Line2D" parent="UserInterface/Reticle"]
+points = PackedVector2Array(15, 0, 35, 0)
+width = 2.0
+
+[node name="Bottom" type="Line2D" parent="UserInterface/Reticle"]
+points = PackedVector2Array(0, 15, 0, 35)
+width = 2.0
+
+[node name="Left" type="Line2D" parent="UserInterface/Reticle"]
+points = PackedVector2Array(-15, 0, -35, 0)
+width = 2.0
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
